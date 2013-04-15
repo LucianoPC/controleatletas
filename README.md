@@ -4,6 +4,7 @@ Controle de Atetlas
 Sistema de cadastro de atletas (para práticas de conceitos de orientação a
 objetos e técnicas de programação).
 
+- Versão para Tenista de Mesa
 
 Desenvolvimento
 ---------------
@@ -15,6 +16,8 @@ Autores
 ------
 
 Paulo Meirelles
+
+- Luciano Prestes Cavalcanti - 110035208
 
 
 Licença
