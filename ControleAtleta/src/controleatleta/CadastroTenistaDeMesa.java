@@ -51,8 +51,8 @@ public class CadastroTenistaDeMesa extends JFrame{
         }
         
         CadastroTenistaDeMesa telaPrincipal = new CadastroTenistaDeMesa();
-        telaPrincipal.setMaximumSize(new Dimension(800, 600));
-        telaPrincipal.setMinimumSize(new Dimension(800, 600));
+        telaPrincipal.setMaximumSize(new Dimension(800, 700));
+        telaPrincipal.setMinimumSize(new Dimension(800, 700));
         telaPrincipal.setVisible(true);
     }
     

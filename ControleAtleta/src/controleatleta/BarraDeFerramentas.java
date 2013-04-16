@@ -23,37 +23,25 @@ public class BarraDeFerramentas extends JToolBar implements ActionListener{
     private ControleTenistaDeMesa controleTenistaDeMesa;
     
     private JToggleButton btnCadastrar;
-    private JToggleButton btnAlterar;
-    private JToggleButton btnDeletar;
-    private JToggleButton btnPesquisar;
+    private JToggleButton btnAlterarVisualizarDeletar;
     
     public BarraDeFerramentas(JPanel painel, JFrame telaPrincipal, ControleTenistaDeMesa controleTenistaDeMesa){
         this.painel = painel;
         this.telaPrincipal = telaPrincipal;
         this.controleTenistaDeMesa = controleTenistaDeMesa;
-        
-        this.setSize(10, 10);
-        
+                
         btnCadastrar = new JToggleButton("Cadastrar");
-        btnAlterar = new JToggleButton("Alterar");
-        btnDeletar = new JToggleButton("Deletar");
-        btnPesquisar = new JToggleButton("Visualizar");
+        btnAlterarVisualizarDeletar = new JToggleButton("Alterar / Visualizar / Deletar");
         
         ButtonGroup grpBotoes = new ButtonGroup();
         grpBotoes.add(btnCadastrar);
-        grpBotoes.add(btnAlterar);
-        grpBotoes.add(btnDeletar);
-        grpBotoes.add(btnPesquisar);
+        grpBotoes.add(btnAlterarVisualizarDeletar);
         
         btnCadastrar.addActionListener(this);
-        btnAlterar.addActionListener(this);
-        btnDeletar.addActionListener(this);
-        btnPesquisar.addActionListener(this);
+        btnAlterarVisualizarDeletar.addActionListener(this);
         
         this.add(btnCadastrar);
-        this.add(btnAlterar);
-        this.add(btnDeletar);
-        this.add(btnPesquisar);
+        this.add(btnAlterarVisualizarDeletar);
     }
 
     @Override
@@ -61,13 +49,10 @@ public class BarraDeFerramentas extends JToolBar implements ActionListener{
         Object origem = event.getSource();
         
         if(origem.equals(btnCadastrar)){
-            alterarPainel(painel, new PnlCadastrarTenistaDeMesa(telaPrincipal, controleTenistaDeMesa));
+            alterarPainel(painel, new PnlCadastrarTenistaDeMesa(telaPrincipal, controleTenistaDeMesa, true));
         }
-        if(origem.equals(btnAlterar)){
-            alterarPainel(painel, new PnlAlterarTenistaDeMesa(telaPrincipal, controleTenistaDeMesa));
-        }
-        if(origem.equals(btnPesquisar)){
-            alterarPainel(painel, new PnlPesquisarTenistaDeMesa(controleTenistaDeMesa));
+        if(origem.equals(btnAlterarVisualizarDeletar)){
+            alterarPainel(painel, new PnlAlterarDeletarPesquisarTenistaDeMesa(controleTenistaDeMesa));
         }
     }
     

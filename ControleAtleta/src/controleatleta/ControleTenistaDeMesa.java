@@ -13,14 +13,9 @@ import java.util.List;
  * @author luciano
  */
 public class ControleTenistaDeMesa {
-    
-    public interface ControleTenistaDeMesaChangeListener{
-        public void onControleTenistaDeMesaChange(ControleTenistaDeMesa controleTenistaDeMesa);
-    }
-    
+        
     private ArrayList<TenistaDeMesa> tenistas;
     private List<TenistaDeMesa> safeTenistas;
-    private ControleTenistaDeMesaChangeListener controleTenistaDeMesaChangeListener;
     
     public ControleTenistaDeMesa(){
         tenistas = new ArrayList<TenistaDeMesa>();
@@ -30,12 +25,10 @@ public class ControleTenistaDeMesa {
     public void adicionar(TenistaDeMesa tenistaDeMesa) throws TenistaInvalidoException{
         validarSeTenistaDeMesaAindaNaoExiste(tenistaDeMesa);
         tenistas.add(tenistaDeMesa);
-        notifyListener();
     }
     
     public void remover(TenistaDeMesa tenistaDeMesa){
         tenistas.remove(tenistaDeMesa);
-        notifyListener();
     }
     
     public TenistaDeMesa pesquisar(String nome) throws TenistaInvalidoException{
@@ -53,12 +46,7 @@ public class ControleTenistaDeMesa {
     public void ordenarTenistasPorNome(){
         Collections.sort(tenistas);
     }
-    
-    private void notifyListener(){
-        if(controleTenistaDeMesaChangeListener != null)
-            controleTenistaDeMesaChangeListener.onControleTenistaDeMesaChange(this);
-    }
-    
+        
     private void validarSeTenistaDeMesaAindaNaoExiste(TenistaDeMesa tenistaDeMesa) throws TenistaInvalidoException{
         for(TenistaDeMesa tenista : tenistas){
             if(tenista.getNome().equals(tenistaDeMesa.getNome()))
