@@ -4,24 +4,6 @@
  */
 package controleatleta;
 
-import static controleatleta.ControleTenistaDeMesa.altura;
-import static controleatleta.ControleTenistaDeMesa.categoria;
-import static controleatleta.ControleTenistaDeMesa.cpf;
-import static controleatleta.ControleTenistaDeMesa.dataNascimento;
-import static controleatleta.ControleTenistaDeMesa.endereco;
-import static controleatleta.ControleTenistaDeMesa.estilo;
-import static controleatleta.ControleTenistaDeMesa.nome;
-import static controleatleta.ControleTenistaDeMesa.nomeMae;
-import static controleatleta.ControleTenistaDeMesa.nomePai;
-import static controleatleta.ControleTenistaDeMesa.peso;
-import static controleatleta.ControleTenistaDeMesa.premiacoes;
-import static controleatleta.ControleTenistaDeMesa.rg;
-import static controleatleta.ControleTenistaDeMesa.sexo;
-import static controleatleta.ControleTenistaDeMesa.telefones;
-import static controleatleta.ControleTenistaDeMesa.totalDerrotas;
-import static controleatleta.ControleTenistaDeMesa.totalDesistencias;
-import static controleatleta.ControleTenistaDeMesa.totalPartidas;
-import static controleatleta.ControleTenistaDeMesa.totalVitorias;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -33,6 +15,18 @@ import java.util.List;
  * @author luciano
  */
 public class ControleTenistaDeMesa {
+    
+    public class Estilo{
+        public static final char ortodoxo = 'O';
+        public static final char southpaw = 'S';
+        public static final char destro = 'O';
+        public static final char canhoto = 'S';
+    }
+    
+    public class Categoria{
+        public static final char amador = 'A';
+        public static final char profissional = 'P';
+    }
     
     public static final String nome = "Nome";
     public static final String telefones = "Telefones";
@@ -123,5 +117,5 @@ public class ControleTenistaDeMesa {
                 throw new TenistaInvalidoException("O Tenista de Mesa '" + tenistaDeMesa.getNome() + "' já está cadastrado");
         }
     }
-    
+        
 }
