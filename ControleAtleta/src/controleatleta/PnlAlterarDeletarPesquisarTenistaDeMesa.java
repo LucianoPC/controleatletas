@@ -15,7 +15,6 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
@@ -374,7 +373,7 @@ public class PnlAlterarDeletarPesquisarTenistaDeMesa extends javax.swing.JPanel 
      }
     
     private void deletarTenistaDeMesa(String nome) throws TenistaInvalidoException{
-        controleTenistaDeMesa.remover(controleTenistaDeMesa.pesquisar(nome));
+        controleTenistaDeMesa.remover(nome);
     }
     
     private void bloquearCamposDaJanelaComOsAtributosDoTenista(PnlCadastrarTenistaDeMesa pnlCadastrarTenistaDeMesa){

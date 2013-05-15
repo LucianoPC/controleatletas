@@ -15,7 +15,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -623,37 +623,36 @@ private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     }
     
     public void cadastrarTenistaDeMesa() throws ParseException, TenistaInvalidoException{
-        TenistaDeMesa tenistaDeMesa = criarTenistaDeMesa();
-        controleTenistaDeMesa.adicionar(tenistaDeMesa);
+        HashMap<String, Object> informacoes_tenistaDeMesa = new HashMap<String, Object>();
+        carregarInformacoesDoTenistaDeMesa(informacoes_tenistaDeMesa);
+        controleTenistaDeMesa.adicionar(informacoes_tenistaDeMesa);
     }
     
-    private TenistaDeMesa criarTenistaDeMesa() throws ParseException{
-        TenistaDeMesa tenistaDeMesa = new TenistaDeMesa(null);
-        atribuirValoresInformacoesGerais(tenistaDeMesa);
-        atribuirValoresEndereco(tenistaDeMesa);
-        atribuirValoresFichaTecnica(tenistaDeMesa);
-        return tenistaDeMesa;
+    private void carregarInformacoesDoTenistaDeMesa(HashMap<String, Object> informacoes_tenistaDeMesa) throws ParseException{
+        atribuirValoresInformacoesGerais(informacoes_tenistaDeMesa);
+        atribuirValoresEndereco(informacoes_tenistaDeMesa);
+        atribuirValoresFichaTecnica(informacoes_tenistaDeMesa);
     }
     
-    private void atribuirValoresInformacoesGerais(TenistaDeMesa tenistaDeMesa) throws ParseException{
-        tenistaDeMesa.setNome(jTextFieldNome.getText());
-        tenistaDeMesa.setDataNascimento(dateFormat.parse(jTextFieldDataNascimento.getText()));
-        tenistaDeMesa.setAltura(Double.parseDouble(jTextFieldAltura.getText()));
-        tenistaDeMesa.setPeso(Double.parseDouble(jTextFieldPeso.getText()));
-        tenistaDeMesa.setSexo(jComboBoxSexo.getSelectedItem().toString().charAt(0));
-        tenistaDeMesa.setNomePai(jTextFieldNomePai.getText());
-        tenistaDeMesa.setNomeMae(jTextFieldNomeMae.getText());
-        tenistaDeMesa.setRg(jTextFieldRg.getText());
-        tenistaDeMesa.setCpf(jTextFieldCpf.getText());
-        tenistaDeMesa.setTelefones(new ArrayList<String>());
+    private void atribuirValoresInformacoesGerais(HashMap<String, Object> informacoes_tenistaDeMesa) throws ParseException{
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.nome, jTextFieldNome.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.dataNascimento, dateFormat.parse(jTextFieldDataNascimento.getText()));
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.altura, Double.parseDouble(jTextFieldAltura.getText()));
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.peso, Double.parseDouble(jTextFieldPeso.getText()));
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.sexo, jComboBoxSexo.getSelectedItem().toString().charAt(0));
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.nomePai, jTextFieldNomePai.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.nomeMae, jTextFieldNomeMae.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.rg, jTextFieldRg.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.cpf, jTextFieldCpf.getText());
+        
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.telefones, new ArrayList<String>());
         for(int i = 0; i < telefonesListModel.size(); i++){
-            tenistaDeMesa.getTelefones().add(telefonesListModel.getElementAt(i).toString());
+            ((ArrayList<String>)informacoes_tenistaDeMesa.get(ControleTenistaDeMesa.telefones)).add(telefonesListModel.getElementAt(i).toString());
         }
     }
     
-    private void atribuirValoresEndereco(TenistaDeMesa tenistaDeMesa){
+    private void atribuirValoresEndereco(HashMap<String, Object> informacoes_tenistaDeMesa){
         Endereco endereco = new Endereco();
-        endereco = new Endereco();
         endereco.setBairro(jTextFieldBairro.getText());
         endereco.setCep(jTextFieldCep.getText());
         endereco.setCidade(jTextFieldCidade.getText());
@@ -662,20 +661,22 @@ private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         endereco.setLogradouro(jTextFieldLogradouro.getText());
         endereco.setNumero(jTextFieldNumero.getText());
         endereco.setPais(jTextFieldPais.getText());
-        tenistaDeMesa.setEndereco(endereco);
+        
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.endereco, endereco);
     }
     
-    private void atribuirValoresFichaTecnica(TenistaDeMesa tenistaDeMesa){
-        tenistaDeMesa.setCategoria(jComboBoxCategoria.getSelectedItem().toString().charAt(0));
-        tenistaDeMesa.setEstilo(jComboBoxEstilo.getSelectedItem().toString().charAt(0));
-        tenistaDeMesa.setTotalPartidas(Integer.parseInt(jTextFieldTotalPartidas.getText()));
-        tenistaDeMesa.setTotalVitorias(Integer.parseInt(jTextFieldTotalVitorias.getText()));
-        tenistaDeMesa.setTotalDerrotas(Integer.parseInt(jTextFieldTotalDerrotas.getText()));
-        tenistaDeMesa.setTotalDesistencias(Integer.parseInt(jTextFieldTotalDesistencias.getText()));
-        tenistaDeMesa.setPremiacoes(new ArrayList<Premiacao>());
+    private void atribuirValoresFichaTecnica(HashMap<String, Object> informacoes_tenistaDeMesa){
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.categoria, jComboBoxCategoria.getSelectedItem().toString().charAt(0));
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.estilo, jComboBoxEstilo.getSelectedItem().toString().charAt(0));
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.totalPartidas, Integer.parseInt(jTextFieldTotalPartidas.getText()));
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.totalVitorias, Integer.parseInt(jTextFieldTotalVitorias.getText()));
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.totalDerrotas, Integer.parseInt(jTextFieldTotalDerrotas.getText()));
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.totalDesistencias, Integer.parseInt(jTextFieldTotalDesistencias.getText()));
+        
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.premiacoes, new ArrayList<Premiacao>());
         for(int i = 0; i < premiacaoListModel.size(); i++){
             Premiacao premiacao = (Premiacao) premiacaoListModel.getElementAt(i);
-            tenistaDeMesa.getPremiacoes().add(premiacao);
+            ((ArrayList<Premiacao>)informacoes_tenistaDeMesa.get(ControleTenistaDeMesa.premiacoes)).add(premiacao);
         }
     }
     
