@@ -20,7 +20,7 @@ public class TenistaDeMesa extends Atleta implements Comparable<TenistaDeMesa> {
     private int totalDerrotas;
     private int totalDesistencias;
     
-    public TenistaDeMesa(String nome){
+    public TenistaDeMesa(String nome) throws TenistaInvalidoException{
         super(nome);
     }
 

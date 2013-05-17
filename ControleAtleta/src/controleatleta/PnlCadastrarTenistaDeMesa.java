@@ -586,12 +586,10 @@ private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//
 // TODO add your handling code here:
     try{
         if(podeCadastrar){
-            validarCampos();
+            //validarCampos();
             cadastrarTenistaDeMesa();
             JOptionPane.showMessageDialog(null,"Cadastro Tenista de Mesa: " + jTextFieldNome.getText() +"\nRealizado com Sucesso!","Concluido",JOptionPane.INFORMATION_MESSAGE);
         }
-    } catch(CampoInvalidoException e){
-        JOptionPane.showMessageDialog(null,"ERROR: " + e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE);
     } catch(ParseException e){
         JOptionPane.showMessageDialog(null,"ERROR: " + "Algum Campo foi preenchido incorretamente","Erro",JOptionPane.ERROR_MESSAGE);
     } catch(TenistaInvalidoException e){
@@ -635,210 +633,48 @@ private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     }
     
     private void atribuirValoresInformacoesGerais(HashMap<String, Object> informacoes_tenistaDeMesa) throws ParseException{
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.nome, jTextFieldNome.getText());
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.dataNascimento, dateFormat.parse(jTextFieldDataNascimento.getText()));
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.altura, Double.parseDouble(jTextFieldAltura.getText()));
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.peso, Double.parseDouble(jTextFieldPeso.getText()));
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.sexo, jComboBoxSexo.getSelectedItem().toString().charAt(0));
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.nomePai, jTextFieldNomePai.getText());
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.nomeMae, jTextFieldNomeMae.getText());
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.rg, jTextFieldRg.getText());
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.cpf, jTextFieldCpf.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.nome, jTextFieldNome.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.dataNascimento, jTextFieldDataNascimento.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.altura, jTextFieldAltura.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.peso, jTextFieldPeso.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.sexo, jComboBoxSexo.getSelectedItem().toString().charAt(0));
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.nomePai, jTextFieldNomePai.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.nomeMae, jTextFieldNomeMae.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.rg, jTextFieldRg.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.cpf, jTextFieldCpf.getText());
         
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.telefones, new ArrayList<String>());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.telefones, new ArrayList<String>());
         for(int i = 0; i < telefonesListModel.size(); i++){
-            ((ArrayList<String>)informacoes_tenistaDeMesa.get(ControleTenistaDeMesa.telefones)).add(telefonesListModel.getElementAt(i).toString());
+            ((ArrayList<String>)informacoes_tenistaDeMesa.get(ControleTenistaDeMesa.Tenista.telefones)).add(telefonesListModel.getElementAt(i).toString());
         }
     }
     
     private void atribuirValoresEndereco(HashMap<String, Object> informacoes_tenistaDeMesa){
-        Endereco endereco = new Endereco();
-        endereco.setBairro(jTextFieldBairro.getText());
-        endereco.setCep(jTextFieldCep.getText());
-        endereco.setCidade(jTextFieldCidade.getText());
-        endereco.setComplemento(jTextFieldComplemento.getText());
-        endereco.setEstado((String) jComboBoxEstado.getSelectedItem());
-        endereco.setLogradouro(jTextFieldLogradouro.getText());
-        endereco.setNumero(jTextFieldNumero.getText());
-        endereco.setPais(jTextFieldPais.getText());
-        
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.endereco, endereco);
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.TenistaEndereco.bairro, jTextFieldBairro.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.TenistaEndereco.cep, jTextFieldCep.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.TenistaEndereco.cidade, jTextFieldCidade.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.TenistaEndereco.complemento, jTextFieldComplemento.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.TenistaEndereco.estado, jComboBoxEstado.getSelectedItem());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.TenistaEndereco.logradouro, jTextFieldLogradouro.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.TenistaEndereco.numero, jTextFieldNumero.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.TenistaEndereco.pais, jTextFieldPais.getText());
     }
     
     private void atribuirValoresFichaTecnica(HashMap<String, Object> informacoes_tenistaDeMesa){
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.categoria, jComboBoxCategoria.getSelectedItem().toString().charAt(0));
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.estilo, jComboBoxEstilo.getSelectedItem().toString().charAt(0));
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.totalPartidas, Integer.parseInt(jTextFieldTotalPartidas.getText()));
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.totalVitorias, Integer.parseInt(jTextFieldTotalVitorias.getText()));
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.totalDerrotas, Integer.parseInt(jTextFieldTotalDerrotas.getText()));
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.totalDesistencias, Integer.parseInt(jTextFieldTotalDesistencias.getText()));
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.categoria, jComboBoxCategoria.getSelectedItem().toString().charAt(0));
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.estilo, jComboBoxEstilo.getSelectedItem().toString().charAt(0));
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.totalPartidas, jTextFieldTotalPartidas.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.totalVitorias, jTextFieldTotalVitorias.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.totalDerrotas, jTextFieldTotalDerrotas.getText());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.totalDesistencias, jTextFieldTotalDesistencias.getText());
         
-        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.premiacoes, new ArrayList<Premiacao>());
+        informacoes_tenistaDeMesa.put(ControleTenistaDeMesa.Tenista.premiacoes, new ArrayList<Premiacao>());
         for(int i = 0; i < premiacaoListModel.size(); i++){
             Premiacao premiacao = (Premiacao) premiacaoListModel.getElementAt(i);
-            ((ArrayList<Premiacao>)informacoes_tenistaDeMesa.get(ControleTenistaDeMesa.premiacoes)).add(premiacao);
+            ((ArrayList<Premiacao>)informacoes_tenistaDeMesa.get(ControleTenistaDeMesa.Tenista.premiacoes)).add(premiacao);
         }
     }
     
-    public void validarCampos() throws CampoInvalidoException{
-        validarCamposInformacoesGerais();
-        validarCamposEndereco();
-        validarCamposFichaTecnica();
-    }
-    
-    private void validarCamposInformacoesGerais() throws CampoInvalidoException{
-        validarNome();
-        validarDataNascimento();
-        validarAltura();
-        validarPeso();
-        validarNomePai();
-        validarNomeMae();
-        validarRG();
-        validarCPF();
-    }
-    
-    private void validarCamposEndereco() throws CampoInvalidoException{
-        validarBairro();
-        validarCEP();
-        validarCidade();
-        validarComplemento();
-        validarLogradouro();
-        validarNumero();
-        validarPais();
-    }
-    
-    private void validarCamposFichaTecnica() throws CampoInvalidoException{
-        validarTotalPartidas();
-        validarTotalVitorias();
-        validarTotalDerrotas();
-        validarDesistencias();
-    }
-    
-    private void validarNome() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldNome, "Nome");
-    }
-    
-    private void validarDataNascimento() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldDataNascimento, "Data de Nascimento");
-        try {
-            dateFormat.parse(jTextFieldDataNascimento.getText());
-        } catch (ParseException ex) {
-            jTextFieldDataNascimento.requestFocus();
-            throw new CampoInvalidoException("O valor do campo 'Data de Nascimento' é inválido.");
-        }
-    }
-    
-    private void validarAltura() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldAltura, "Altura");
-        validarCampoDouble(jTextFieldAltura, "Altura");
-    }
-    
-    private void validarPeso() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldPeso, "Peso");
-        validarCampoDouble(jTextFieldPeso, "Peso");
-    }
-    
-    private void validarNomePai() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldNomePai, "Nome Pai");
-    }
-    
-    private void validarNomeMae() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldNomeMae, "Nome Mae");
-    }
-    
-    private void validarRG() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldRg, "RG");
-        validarCampoInteiroComTamanhoExato(jTextFieldRg, 7, "RG");
-    }
-    
-    private void validarCPF() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldCpf, "CPF");
-        validarCampoInteiroComTamanhoExato(jTextFieldCpf, 11, "CPF");
-    }
-    
-    private void validarBairro() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldBairro, "Bairro");
-    }
-    
-    private void validarCEP() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldCep, "CEP");
-        validarCampoInteiroComTamanhoExato(jTextFieldCep, 8, "CEP");
-    }
-    
-    private void validarCidade() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldCidade, "Cidade");
-    }
-    
-    private void validarComplemento() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldComplemento, "Complemento");
-    }
-    
-    private void validarLogradouro() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldLogradouro, "Logradouro");
-    }
-    
-    private void validarNumero() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldNumero, "Numero");
-    }
-    
-    private void validarPais() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldPais, "País");
-    }
-    
-    private void validarTotalPartidas() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldTotalPartidas, "Total de Partidas");
-        validarCampoInteiro(jTextFieldTotalPartidas, "Total de Partidas");
-    }
-    
-    private void validarTotalVitorias() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldTotalVitorias, "Total de Vitorias");
-        validarCampoInteiro(jTextFieldTotalVitorias, "Total de Vitorias");
-    }
-    
-    private void validarTotalDerrotas() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldTotalDerrotas, "Total de Derrotas");
-        validarCampoInteiro(jTextFieldTotalDerrotas, "Total de Derrotas");
-    }
-    
-    private void validarDesistencias() throws CampoInvalidoException{
-        validarCampoNaoNulo(jTextFieldTotalDesistencias, "Total de Desistencias");
-        validarCampoInteiro(jTextFieldTotalDesistencias, "Total de Desistencias");
-    }
-    
-    private void validarCampoNaoNulo(JTextField jTextField, String nomeCampo) throws CampoInvalidoException{
-        if(jTextField.getText().trim().length() == 0){
-            jTextField.requestFocus();
-            throw new CampoInvalidoException("O valor do campo '" + nomeCampo + "' não foi informado");
-        }
-    }
-    
-    private void validarCampoDouble(JTextField jTextField, String nomeCampo) throws CampoInvalidoException{
-        try{
-            Double.parseDouble(jTextField.getText());
-        } catch(Exception e){
-            jTextField.requestFocus();
-            throw new CampoInvalidoException("O valor do campo '" + nomeCampo + "' é inválido.");
-        }
-    }
-    
-    private void validarCampoInteiro(JTextField jTextField, String nomeCampo) throws CampoInvalidoException{
-        try{
-            Integer.parseInt(jTextField.getText());
-        } catch(Exception e){
-            jTextField.requestFocus();
-            throw new CampoInvalidoException("O valor do campo '" + nomeCampo + "' é inválido.");
-        }
-    }
-    
-    private void validarCampoInteiroComTamanhoExato(JTextField jTextField, int tamanhoExato, String nomeCampo) throws CampoInvalidoException{
-        if(jTextField.getText().trim().length() != tamanhoExato){
-            jTextField.requestFocus();
-            throw new CampoInvalidoException("O valor do campo '" + nomeCampo + "' deve ter " + tamanhoExato + " digitos");
-        }
-    }
-    
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdicionarPremiacao;

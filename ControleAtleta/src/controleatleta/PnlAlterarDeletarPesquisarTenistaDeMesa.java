@@ -23,16 +23,10 @@ import javax.swing.JTextField;
  */
 public class PnlAlterarDeletarPesquisarTenistaDeMesa extends javax.swing.JPanel {
 
-    private final char CHAR_MASCULINO = 'M';
-    private final char CHAR_FEMININO = 'F';
     private final int INT_MASCULINO = 0;
     private final int INT_FEMININO = 1;
-    private final char CHAR_AMADOR = 'A';
-    private final char CHAR_PROFISSIONAL = 'P';
     private final int INT_AMADOR = 0;
     private final int INT_PROFISSIONAL = 1;
-    private final char CHAR_ORTODOXO = 'O'; //DESTRO
-    private final char CHAR_SOUTHPAW = 'S'; //CANHOTO
     private final int INT_ORTODOXO = 0;
     private final int INT_SOUTHPAW = 1;
     
@@ -287,12 +281,9 @@ public class PnlAlterarDeletarPesquisarTenistaDeMesa extends javax.swing.JPanel 
             @Override
             public void actionPerformed(ActionEvent event) {
                 try{
-                    pnlCadastrarTenistaDeMesa.validarCampos();
                     deletarTenistaDeMesa(pnlCadastrarTenistaDeMesa.getjTextFieldNome().getText());
                     pnlCadastrarTenistaDeMesa.cadastrarTenistaDeMesa();
                     JOptionPane.showMessageDialog(null,"Alterar Tenista de Mesa: " + pnlCadastrarTenistaDeMesa.getjTextFieldNome().getText() +"\nRealizado com Sucesso!","Concluido",JOptionPane.INFORMATION_MESSAGE);
-                } catch(CampoInvalidoException e){
-                    JOptionPane.showMessageDialog(null,"ERROR: " + e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE);
                 } catch(TenistaInvalidoException e){
                     JOptionPane.showMessageDialog(null,"ERROR: " + e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE);
                 } catch(ParseException e){
@@ -328,7 +319,7 @@ public class PnlAlterarDeletarPesquisarTenistaDeMesa extends javax.swing.JPanel 
         pnlCadastrarTenistaDeMesa.getjTextFieldDataNascimento().setText(dateFormat.format(tenistaDeMesa.getDataNascimento()));
         pnlCadastrarTenistaDeMesa.getjTextFieldAltura().setText(""+tenistaDeMesa.getAltura());
         pnlCadastrarTenistaDeMesa.getjTextFieldPeso().setText(""+tenistaDeMesa.getPeso());
-        if(tenistaDeMesa.getSexo() == CHAR_MASCULINO)
+        if(tenistaDeMesa.getSexo() == ControleTenistaDeMesa.Sexo.masculino)
             pnlCadastrarTenistaDeMesa.getjComboBoxSexo().setSelectedIndex(INT_MASCULINO);
         else
             pnlCadastrarTenistaDeMesa.getjComboBoxSexo().setSelectedIndex(INT_FEMININO);
@@ -353,12 +344,12 @@ public class PnlAlterarDeletarPesquisarTenistaDeMesa extends javax.swing.JPanel 
     }
     
      private void carregarAtributosFichaTecnica(TenistaDeMesa tenistaDeMesa, PnlCadastrarTenistaDeMesa pnlCadastrarTenistaDeMesa){
-        if(tenistaDeMesa.getCategoria() == CHAR_AMADOR)
+        if(tenistaDeMesa.getCategoria() == ControleTenistaDeMesa.Categoria.amador)
             pnlCadastrarTenistaDeMesa.getjComboBoxCategoria().setSelectedIndex(INT_AMADOR);
         else
             pnlCadastrarTenistaDeMesa.getjComboBoxCategoria().setSelectedIndex(INT_PROFISSIONAL);
         
-        if(tenistaDeMesa.getEstilo() == CHAR_ORTODOXO)
+        if(tenistaDeMesa.getEstilo() == ControleTenistaDeMesa.Estilo.ortodoxo)
             pnlCadastrarTenistaDeMesa.getjComboBoxEstilo().setSelectedIndex(INT_ORTODOXO);
         else
             pnlCadastrarTenistaDeMesa.getjComboBoxEstilo().setSelectedIndex(INT_SOUTHPAW);
